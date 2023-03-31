@@ -47,14 +47,9 @@ namespace Exercicio06 //Exercicio do arquivo com as cidades.
                 }
             }
         }
-        static void Main(string[] args)
-        {
-            
-            string caminhoDoArquivo = File.ReadAllText(@"C:\Users\Charles Junior\source\repos\ListaExerciciosString\Exercicio06\Dados\Cidades.csv");
-            string[] cidadesEhEstados = ObterCidadesEhEstados(caminhoDoArquivo);
-
-            MostrarCidadesAgrupadasPrimeiraLetra(cidadesEhEstados);
-            
+        static void MostrarCidadesAgrupadasEstado(string[] cidadesEhEstados)
+        {   
+            Console.Clear();
             string[] estados = new string[]
             {
                 "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
@@ -63,11 +58,11 @@ namespace Exercicio06 //Exercicio do arquivo com as cidades.
                 "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina",
                 "São Paulo", "Sergipe", "Tocantins"
             };
-            for(int i = 0; i < estados.Length; i++)
+            for (int i = 0; i < estados.Length; i++)
             {
                 string estado = estados[i];
                 Console.WriteLine($"Cidades do estado: {estado}\n");
-                for(int x = 0; x < cidadesEhEstados.Length; x++)
+                for (int x = 0; x < cidadesEhEstados.Length; x++)
                 {
                     if (cidadesEhEstados[x] != null && cidadesEhEstados[x].Contains(estado))
                     {
@@ -75,8 +70,29 @@ namespace Exercicio06 //Exercicio do arquivo com as cidades.
                         string cidadeSemEstado = cidadesEhEstados[x].Remove(posicaoInicioEstado);
                         Console.WriteLine("\t" + cidadeSemEstado);
                     }
+
                 }
+                Console.WriteLine();
             }
+        }
+        static void Main(string[] args)
+        {
+            
+            string caminhoDoArquivo = File.ReadAllText(@"C:\Users\Charles Junior\source\repos\ListaExerciciosString\Exercicio06\Dados\Cidades.csv");
+            string[] cidadesEhEstados = ObterCidadesEhEstados(caminhoDoArquivo);
+            Console.WriteLine("Menu de escolha: ");
+            Console.WriteLine("Digite 1 para apresentar as cidades agrupadas pela primeira letra.");
+            Console.WriteLine("Digite 2 para apresentar as cidades agrupadas pelo Estado.");
+            string opcao = Console.ReadLine();
+            
+            if(opcao == "1")
+            {
+                MostrarCidadesAgrupadasPrimeiraLetra(cidadesEhEstados);
+            }else if(opcao == "2")
+            {
+                MostrarCidadesAgrupadasEstado(cidadesEhEstados);
+            }
+            
             Console.ReadLine();
         }
     }
